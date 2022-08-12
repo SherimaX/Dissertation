@@ -391,3 +391,4 @@ if __name__ == "__main__":
     main = MiRoClient()  # Instantiate class
 
     turn_right(main)
+    turn_left(main)
