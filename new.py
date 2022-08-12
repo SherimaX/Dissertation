@@ -371,7 +371,7 @@ def turn_right(robot):
     time.sleep(0.3)
     robot.drive(0.3, -0.3)
     time.sleep(0.3)
-    robot.drive(0.15, -0.15)
+    robot.drive(0.12, -0.12)
     time.sleep(0.3)
     robot.drive(0.1, -0.1)
     time.sleep(0.5)
