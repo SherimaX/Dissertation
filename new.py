@@ -367,7 +367,7 @@ class MiRoClient:
             rospy.sleep(self.TICK)
 
 def turn_right(robot):
-    robot.drive(0.1,-0.1)
+    robot.drive(0.2,-0.2)
     time.sleep(0.5)
     # robot.drive(1,-0.5)
     # time.sleep(0.5)
