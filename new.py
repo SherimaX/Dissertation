@@ -387,6 +387,7 @@ def move_forward(robot):
     time.sleep(0.5)
 # This condition fires when the script is called directly
 if __name__ == "__main__":
+
     main = MiRoClient()  # Instantiate class
     move_forward(main)
     turn_right(main)
