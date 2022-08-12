@@ -550,7 +550,7 @@ def agent():
             result = 0
             root.destroy()
 
-    root.after(100, move)
+    root.after(1000, move)
     root.mainloop()
 
     return result
