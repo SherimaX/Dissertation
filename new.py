@@ -373,9 +373,9 @@ def turn_right(robot):
     time.sleep(0.5)
 
 def turn_left(robot):
-    robot.drive(-1,1)
+    robot.drive(-0.5,0.5)
     time.sleep(0.2)
-    robot.drive(-1,1)
+    robot.drive(-0.5,0.5)
     time.sleep(0.5)
 
 def move_forward(robot):
@@ -389,13 +389,5 @@ def move_forward(robot):
 if __name__ == "__main__":
 
     main = MiRoClient()  # Instantiate class
-    move_forward(main)
-    turn_right(main)
-    move_forward(main)
-    turn_left(main)
-    turn_left(main)
-    move_forward(main)
-    turn_left(main)
-    move_forward(main)
-    turn_right(main)
+
     turn_right(main)
