@@ -369,7 +369,7 @@ class MiRoClient:
 def turn_right(robot):
     robot.drive(0.3,-0.3)
     time.sleep(0.5)
-    robot.drive(0.2, -0.2)
+    robot.drive(0.3, -0.3)
     time.sleep(0.5)
     robot.drive(0.1, -0.1)
     time.sleep(0.5)
