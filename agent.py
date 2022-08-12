@@ -419,14 +419,14 @@ class MiRoClient:
 
     def move_forward(self):
         self.drive(2,2)
-        time.sleep(0.5)
+        time.sleep(0.2)
         self.drive(2,2)
-        time.sleep(0.5)
+        time.sleep(0.2)
         self.drive(2,2)
-        time.sleep(0.5)
+        time.sleep(0.2)
         self.drive(2, 2)
-        time.sleep(0.5)
-        self.drive(2, 2)
+        time.sleep(0.2)
+        self.drive(2,2)
         time.sleep(0.5)
 
     def move_up(self):
