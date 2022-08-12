@@ -29,6 +29,10 @@ WORLD_WIDTH = 9
 WALL_FRAC = .2
 NUM_WINS = 5
 NUM_LOSE = 10
+UP = 0
+DOWN = 1
+LEFT = 2
+RIGHT = 3
 
 #!/usr/bin/env python3
 """
@@ -66,6 +70,7 @@ class MiRoClient:
     """
     Script settings below
     """
+
     TICK = 0.02  # This is the update interval for the main control loop in secs
     CAM_FREQ = 1  # Number of ticks before camera gets a new frame, increase in case of network lag
     SLOW = 0.1  # Radial speed when turning on the spot (rad/s)
@@ -78,6 +83,7 @@ class MiRoClient:
         """
         Reset MiRo head to default position, to avoid having to deal with tilted frames
         """
+
         self.kin_joints = JointState()  # Prepare the empty message
         self.kin_joints.name = ["tilt", "lift", "yaw", "pitch"]
         self.kin_joints.position = [0.0, radians(34.0), 0.0, 0.0]
@@ -318,6 +324,7 @@ class MiRoClient:
 
     def __init__(self):
         # Initialise a new ROS node to communicate with MiRo
+        self.orientation = UP
         if not self.NODE_EXISTS:
             rospy.init_node("kick_blue_ball", anonymous=True)
         # Give it some time to make sure everything is initialised
@@ -398,25 +405,86 @@ class MiRoClient:
             self.counter += 1
             rospy.sleep(self.TICK)
 
-def turn_right(robot):
-    robot.drive(1,-1)
-    time.sleep(0.2)
-    robot.drive(1,-1)
-    time.sleep(0.5)
+    def turn_right(self):
+        self.drive(1,-1)
+        time.sleep(0.2)
+        self.drive(1,-1)
+        time.sleep(0.5)
 
-def turn_left(robot):
-    robot.drive(-1,1)
-    time.sleep(0.2)
-    robot.drive(-1,1)
-    time.sleep(0.5)
+    def turn_left(self):
+        self.drive(-1,1)
+        time.sleep(0.2)
+        self.drive(-1,1)
+        time.sleep(0.5)
 
-def move_forward(robot):
-    robot.drive(2,2)
-    time.sleep(0.2)
-    robot.drive(2,2)
-    time.sleep(0.2)
-    robot.drive(2,2)
-    time.sleep(0.5)
+    def move_forward(self):
+        self.drive(2,2)
+        time.sleep(0.2)
+        self.drive(2,2)
+        time.sleep(0.2)
+        self.drive(2,2)
+        time.sleep(0.5)
+
+    def move_up(self):
+        if self.orientation == UP:
+            self.move_forward()
+        elif self.orientation == DOWN:
+            self.turn_left()
+            self.turn_left()
+            self.move_forward()
+        elif self.orientation == LEFT:
+            self.turn_right()
+            self.move_forward()
+        elif self.orientation == RIGHT:
+            self.turn_left()
+            self.move_forward()
+        self.orientation = UP
+
+    def move_down(self):
+        if self.orientation == UP:
+            self.turn_left()
+            self.turn_left()
+            self.move_forward()
+        elif self.orientation == DOWN:
+            self.move_forward()
+        elif self.orientation == LEFT:
+            self.turn_left()
+            self.move_forward()
+        elif self.orientation == RIGHT:
+            self.turn_right()
+            self.move_forward()
+        self.orientation = DOWN
+
+    def move_left(self):
+        if self.orientation == UP:
+            self.turn_left()
+            self.move_forward()
+        elif self.orientation == DOWN:
+            self.turn_right()
+            self.move_forward()
+        elif self.orientation == LEFT:
+            self.move_forward()
+        elif self.orientation == RIGHT:
+            self.turn_left()
+            self.turn_left()
+            self.move_forward()
+
+        self.orientation = LEFT
+
+    def move_right(self):
+        if self.orientation == UP:
+            self.turn_right()
+            self.move_forward()
+        elif self.orientation == DOWN:
+            self.turn_left()
+            self.move_forward()
+        elif self.orientation == LEFT:
+            self.turn_left()
+            self.turn_left()
+            self.move_forward()
+        elif self.orientation == RIGHT:
+            self.move_forward()
+        self.orientation = RIGHT
 
 class GridWorld:
 
@@ -922,16 +990,16 @@ def agent():
     def move():
         if direction.get() == "up":
             move_up()
-            turn_right(robot)
+            robot.move_up()
         elif direction.get() == "down":
             move_down()
-            turn_left(robot)
+            robot.move_down()
         elif direction.get() == "left":
             move_left()
-            turn_left(robot)
+            robot.move_left()
         elif direction.get() == "right":
             move_right()
-            turn_right(robot)
+            robot.move_right()
         # elif direction.get() == "random":
         #     move_random()
         else:
@@ -945,7 +1013,7 @@ def agent():
             result = 0
             root.destroy()
 
-    root.after(1000, move)
+    root.after(2000, move)
     root.mainloop()
 
     return result
