@@ -413,7 +413,7 @@ class MiRoClient:
         self.drive(0.12, -0.12)
         time.sleep(0.3)
         self.drive(0.1, -0.1)
-        time.sleep(0.5)
+        time.sleep(0.3)
 
     def turn_left(self):
         self.drive(-0.3, 0.3)
@@ -423,19 +423,19 @@ class MiRoClient:
         self.drive(-0.12, 0.12)
         time.sleep(0.3)
         self.drive(-0.1, 0.1)
-        time.sleep(0.5)
+        time.sleep(0.3)
 
     def move_forward(self):
         self.drive(0.4,0.4)
-        time.sleep(0.5)
+        time.sleep(0.2)
         self.drive(0.4,0.4)
-        time.sleep(0.5)
+        time.sleep(0.2)
         self.drive(0.4,0.4)
-        time.sleep(0.5)
+        time.sleep(0.2)
         self.drive(0.4,0.4)
-        time.sleep(0.5)
+        time.sleep(0.2)
         self.drive(0.4,0.4)
-        time.sleep(0.5)
+        time.sleep(0.3)
 
     def move_up(self):
         if self.orientation == UP:
