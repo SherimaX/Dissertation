@@ -939,7 +939,7 @@ def agent():
 
         root.after(100, move)  # reschedule event in 2 seconds
         num_moves.set(num_moves.get() + 1)
-        if num_moves.get() > 1000:
+        if num_moves.get() > 10:
             print("Survived!")
             global result
             result = 0
