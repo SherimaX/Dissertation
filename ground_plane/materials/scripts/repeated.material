@@ -6,9 +6,7 @@ material RepeatedTexture
     {
       texture_unit
       {
-        // Relative to the location of the material script
         texture ../textures/seamless_texture.jpg
-        // Repeat the texture over the surface (4 per face)
         scale 1 1
       }
     }
