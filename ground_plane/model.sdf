@@ -21,7 +21,7 @@
         </geometry>
         <material>
           <script>
-            <uri>model://my_ground_plane/materials/scripts</uri>
+            <uri>model://ground_plane/materials/scripts</uri>
             <name>RepeatedTexture</name>
           </script>
         </material>
