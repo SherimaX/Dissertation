@@ -16,7 +16,11 @@
       </collision>
       <visual name="visual">
           <material>
-              <name>RepeatedTexture</name>
+              <script>
+                <uri>model://cube/materials/scripts</uri>
+                <uri>model://cube/materials/textures</uri>
+                <name>RepeatedTexture</name>
+              </script>
           </material>
         <geometry>
           <box>
