@@ -16,7 +16,7 @@
       </collision>
       <visual name="visual">
           <material>
-              <name>repeated.material</name>
+              RepeatedTexture
           </material>
         <geometry>
           <box>
