@@ -20,11 +20,11 @@ import cv2
 import matplotlib.pyplot as plt
 import tkinter
 import random
-#
-#import rospy
-#from gazebo_msgs.msg import ModelState
-#from gazebo_msgs.srv import SetModelState
-#import miro2 as miro
+
+import rospy
+from gazebo_msgs.msg import ModelState
+from gazebo_msgs.srv import SetModelState
+import miro2 as miro
 
 from moviepy.editor import VideoClip
 from tqdm import tqdm
