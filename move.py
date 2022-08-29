@@ -78,7 +78,7 @@ class MiRoClient:
         self.bookmark = 0
         # Move the head to default pose
 
-    def drive(self, speed_l=0.4, speed_r=0.4):  # (m/sec, m/sec)
+    def drive(self, speed_l=1, speed_r=1):  # (m/sec, m/sec)
         """
         Wrapper to simplify driving MiRo by converting wheel speeds to cmd_vel
         """
@@ -145,13 +145,6 @@ def miro_move(direction):
 if __name__ == "__main__":
 
     miro = MiRoClient()
-    miro.drive()
-    time.sleep(0.5)
-    miro.drive()
-    time.sleep(0.5)
-    miro.drive()
-    time.sleep(0.5)
-    miro.drive()
-    time.sleep(0.5)
-    miro.drive()
-    time.sleep(0.5)
+    for i in range(50):
+        miro.drive()
+        time.sleep(0.5)
