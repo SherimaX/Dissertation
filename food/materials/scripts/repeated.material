@@ -1,0 +1,14 @@
+material Food
+{
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture ../textures/food.jpg
+        scale 1 1
+      }
+    }
+  }
+}

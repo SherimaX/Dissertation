@@ -20,6 +20,31 @@ class cube:
     output += "        </include>\n\n"
     return output
 
+class water:
+  def __init__(self, id, position, scale):
+    self.name = "water_"+str(id)
+    self.position = position
+    self.scale = scale
+  def output(self):
+    output = "        <include>\n"
+    output += "            <name>{}</name>\n".format(str(self.name))
+    output += "            <uri>model://water</uri>\n"
+    output += "            <pose>{} {} 0 0 0 0</pose>\n".format(self.position[0], self.position[1])
+    output += "        </include>\n\n"
+    return output
+    
+class food:
+  def __init__(self, id, position, scale):
+    self.name = "food_"+str(id)
+    self.position = position
+    self.scale = scale
+  def output(self):
+    output = "        <include>\n"
+    output += "            <name>{}</name>\n".format(str(self.name))
+    output += "            <uri>model://food</uri>\n"
+    output += "            <pose>{} {} 0 0 0 0</pose>\n".format(self.position[0], self.position[1])
+    output += "        </include>\n\n"
+    return output
 
 from PIL import Image
 import numpy as np
@@ -39,18 +64,29 @@ def gen_world_from_image(img_name):
     wall_locs = np.argwhere((pixel_info[1] == 255))
     win_locs = np.argwhere(pixel_info[2] == 255)
     lose_locs = np.argwhere(pixel_info[0] == 255)
-    return w, h, wall_locs, win_locs, lose_locs
+    return wall_locs, win_locs, lose_locs
 
 x_offset = -7
 y_offset = -4
 scale = 0.6
 
-walls = gen_world_from_image("t-maze.pnm")[2]
+walls, water, food = gen_world_from_image("t-maze.pnm")[2]
+
 walls = [[-(w[0] + x_offset) * scale, (w[1] + y_offset) * scale] for w in walls]
+water = [[-(w[0] + x_offset) * scale, (w[1] + y_offset) * scale] for w in water]
+food = [[-(f[0] + x_offset) * scale, (f[1] + y_offset) * scale] for f in food]
 
 file = ""
 for i, w in enumerate(walls):
   new_cube = cube(i, w, scale)
+  file += new_cube.output()
+  
+for i, w in enumerate(water):
+  new_water = water(i, w, scale)
+  file += new_cube.output()
+  
+for i, f in enumerate(food):
+  new_food = food(i, f, scale)
   file += new_cube.output()
 
 world = open("template.txt", "r")
