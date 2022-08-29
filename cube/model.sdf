@@ -15,7 +15,10 @@
         </geometry>
       </collision>
       <visual name="visual">
-          <material>Gazebo/Wood</material>
+          <material>
+              <name>Gazebo/Wood</name>
+              <uri>Gazebo/Wood</uri>
+          </material>
         <geometry>
           <box>
             <size>0.6 0.6 0.6</size>
