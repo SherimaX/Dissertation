@@ -125,14 +125,14 @@ def miro_move(direction):
 
 if __name__ == "__main__":
 
-    
-    drive()
+    miro = MiRoClient()
+    miro.drive()
     time.sleep(0.5)
-    drive()
+    miro.drive()
     time.sleep(0.5)
-    drive()
+    miro.drive()
     time.sleep(0.5)
-    drive()
+    miro.drive()
     time.sleep(0.5)
-    drive()
+    miro.drive()
     time.sleep(0.5)
