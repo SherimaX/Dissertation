@@ -103,8 +103,8 @@ def move(direction):
     if direction == "right":
         y -= 0.6
         
-    state_msg.pose.position.x = 0.5
-    state_msg.pose.position.y = 0
+    state_msg.pose.position.x = x
+    state_msg.pose.position.y = y
     rospy.wait_for_service('/gazebo/set_model_state')
         
     
