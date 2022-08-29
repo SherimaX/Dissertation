@@ -1,0 +1,14 @@
+material Floor
+{
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture ../textures/floor.jpg
+        scale 0.1 0.1
+      }
+    }
+  }
+}
