@@ -22,7 +22,7 @@
         <material>
           <script>
             <uri>model://ground_plane/materials/scripts</uri>
-            <name>RepeatedTexture</name>
+            <name>Floor</name>
           </script>
         </material>
       </visual>

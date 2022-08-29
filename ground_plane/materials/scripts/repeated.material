@@ -1,4 +1,4 @@
-material RepeatedTexture
+material Floor
 {
   technique
   {
@@ -6,7 +6,7 @@ material RepeatedTexture
     {
       texture_unit
       {
-        texture ../textures/seamless_texture.jpg
+        texture ../textures/floor.jpg
         scale 1 1
       }
     }
