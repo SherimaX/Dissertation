@@ -21,53 +21,22 @@
         
           
 import rospy  # ROS Python interface
-        
-        
-          
 import math
-        
-        
-          
 from gazebo_msgs.msg import ModelState
-        
-        
-          
 from gazebo_msgs.srv import SetModelState, GetModelState
-        
-        
-          
 
-
-        
-        
-          
 import miro2 as miro  # Import MiRo Developer Kit library
         
         
           
 ##########################
         
-        
-          
-
-
-        
-        
-          
-
-
-        
+      
         
           
 class Gazebo_Object():
         
-        
-          
-
-
-        
-        
-          
+    
         def __init__(self):
         
         
