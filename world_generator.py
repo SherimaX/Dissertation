@@ -7,7 +7,7 @@ Original file is located at
     https://colab.research.google.com/drive/1eYQkaesVd23ZMBx2Td1iNmuonXuFNBrq
 """
 
-class cube:
+class Cube:
   def __init__(self, id, position, scale):
     self.name = "cube_"+str(id)
     self.position = position
@@ -20,7 +20,7 @@ class cube:
     output += "        </include>\n\n"
     return output
 
-class water:
+class Water:
   def __init__(self, id, position, scale):
     self.name = "water_"+str(id)
     self.position = position
@@ -33,7 +33,7 @@ class water:
     output += "        </include>\n\n"
     return output
     
-class food:
+class Food:
   def __init__(self, id, position, scale):
     self.name = "food_"+str(id)
     self.position = position
@@ -78,15 +78,15 @@ food = [[-(f[0] + x_offset) * scale, (f[1] + y_offset) * scale] for f in food]
 
 file = ""
 for i, w in enumerate(walls):
-  new_cube = cube(i, w, scale)
+  new_cube = Cube(i, w, scale)
   file += new_cube.output()
   
 for i, w in enumerate(water):
-  new_water = water(i, w, scale)
+  new_water = Water(i, w, scale)
   file += new_water.output()
   
 for i, f in enumerate(food):
-  new_food = food(i, f, scale)
+  new_food = Food(i, f, scale)
   file += new_food.output()
 
 world = open("template.txt", "r")
