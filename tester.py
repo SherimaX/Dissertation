@@ -116,8 +116,8 @@ if __name__ == "__main__":
 
     
     move("up")
-#    move("up")
-#    move("up")
-#    move("up")
-#    move("left")
-#    move("left")
+    move("up")
+    move("up")
+    move("up")
+    move("left")
+    move("left")
