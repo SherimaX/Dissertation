@@ -6,7 +6,7 @@ material Food
     {
       texture_unit
       {
-        texture ../textures/food.jpg
+        texture ../textures/food.png
         scale 1 1
       }
     }
