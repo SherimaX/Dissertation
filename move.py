@@ -49,7 +49,7 @@ class MiRoClient:
         if not self.NODE_EXISTS:
             rospy.init_node("kick_blue_ball", anonymous=True)
         # Give it some time to make sure everything is initialised
-        rospy.sleep(2.0)
+#        rospy.sleep(2.0)
         # Initialise CV Bridge
         self.image_converter = CvBridge()
         # Individual robot name acts as ROS topic prefix
