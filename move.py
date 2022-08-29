@@ -51,13 +51,32 @@ class MiRoClient:
         # Give it some time to make sure everything is initialised
         rospy.sleep(2.0)
         # Initialise CV Bridge
+        self.image_converter = CvBridge()
         # Individual robot name acts as ROS topic prefix
         topic_base_name = "/" + os.getenv("MIRO_ROBOT_NAME")
-
+        # Create two new subscribers to recieve camera images with attached callbacks
+       
         # Create a new publisher to send velocity commands to the robot
         self.vel_pub = rospy.Publisher(
             topic_base_name + "/control/cmd_vel", TwistStamped, queue_size=0
         )
+        # Create a new publisher to move the robot head
+        self.pub_kin = rospy.Publisher(
+            topic_base_name + "/control/kinematic_joints", JointState, queue_size=0
+        )
+        # Create handle to store images
+        self.input_camera = [None, None]
+        # New frame notification
+        self.new_frame = [False, False]
+        # Create variable to store a list of ball's x, y, and r values for each camera
+        self.ball = [None, None]
+        # Set the default frame width (gets updated on reciecing an image)
+        self.frame_width = 640
+        # Action selector to reduce duplicate printing to the terminal
+        self.just_switched = True
+        # Bookmark
+        self.bookmark = 0
+        # Move the head to default pose
 
     def drive(self, speed_l=0.1, speed_r=0.1):  # (m/sec, m/sec)
         """
