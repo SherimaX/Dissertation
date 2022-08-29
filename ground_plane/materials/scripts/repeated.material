@@ -7,7 +7,7 @@ material Floor
       texture_unit
       {
         texture ../textures/floor.jpg
-        scale 0.1 0.1
+        scale 1/11 1/11
       }
     }
   }
