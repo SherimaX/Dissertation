@@ -39,7 +39,7 @@
         <pose>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
-            <uri>/Users/andy/.gazebo/models/cube_20k/meshes/cube_20k.stl</uri>
+              <uri>model://cube_20k/meshes/cube_20k.stl</uri>
             <scale>0.6 0.6 0.6</scale>
           </mesh>
         </geometry>
