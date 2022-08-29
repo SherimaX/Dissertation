@@ -83,11 +83,11 @@ for i, w in enumerate(walls):
   
 for i, w in enumerate(water):
   new_water = water(i, w, scale)
-  file += new_cube.output()
+  file += new_water.output()
   
 for i, f in enumerate(food):
   new_food = food(i, f, scale)
-  file += new_cube.output()
+  file += new_food.output()
 
 world = open("template.txt", "r")
 code = world.read()
