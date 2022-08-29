@@ -143,26 +143,16 @@ if __name__ == "__main__":
         state_msg.pose.position.y = OB.y0 + OB.amp*math.sin(t)
         
         
-          
-        try:
-        
+
         
           
-            set_state = rospy.ServiceProxy('/gazebo/set_model_state', SetModelState)
-            resp = set_state( state_msg )
-        
-        
-          
-            #print(current_time.nsecs/10**6, t)
-        
-        
-          
-        except rospy.ServiceException, e:
-        
-        
-          
-            print("Service call failed: %s" % e)
-        
+        set_state = rospy.ServiceProxy('/gazebo/set_model_state', SetModelState)
+        resp = set_state( state_msg )
+    
+    
+      
+        #print(current_time.nsecs/10**6, t)
+    
         
           
         if rospy.get_rostime().secs > current_time.secs:

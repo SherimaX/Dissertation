@@ -85,7 +85,7 @@ class MiRoClient:
 # This condition fires when the script is called directly
 def move(direction):
     state_msg = ModelState()
-    state_msg.model_name = "miro_model"
+    state_msg.model_name = "miro"
   
     get_model_state = rospy.ServiceProxy('/gazebo/get_model_state', GetModelState)
     resp = get_model_state("miro","")
