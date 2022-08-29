@@ -110,7 +110,7 @@ def move(direction):
     
     set_state = rospy.ServiceProxy('/gazebo/set_model_state', SetModelState)
     resp = set_state(state_msg)
-    time.sleep(0.1)
+    time.sleep(0.3)
 
 
 if __name__ == "__main__":
