@@ -108,7 +108,7 @@ def miro_move(direction):
         w = sin(pi / 4)
     if direction == "right":
         y -= 0.6
-        z = -sin(pi / 4)
+        z = sin(pi / 4)
         w = -sin(pi / 4)
         
     state_msg.pose.position.x = x
