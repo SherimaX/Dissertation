@@ -26,6 +26,8 @@ from gazebo_msgs.msg import ModelState
 from gazebo_msgs.srv import SetModelState
 import miro2 as miro
 
+from move import miro_move
+
 from moviepy.editor import VideoClip
 from tqdm import tqdm
 
@@ -427,21 +429,25 @@ def agent():
             g.r[1] = 0
 
     def move_up():
+        miro_move("up")
         x.set(x.get() - 1)
         deplete(g.status, g.depleting_rate)
         show_map()
 
     def move_down():
+        miro_move("down")
         x.set(x.get() + 1)
         deplete(g.status, g.depleting_rate)
         show_map()
 
     def move_left():
+        miro_move("left")
         y.set(y.get() - 1)
         deplete(g.status, g.depleting_rate)
         show_map()
 
     def move_right():
+        miro_move("right")
         y.set(y.get() + 1)
         deplete(g.status, g.depleting_rate)
         show_map()
@@ -531,7 +537,7 @@ def agent():
         else:
             no_op()
 
-        root.after(100, move)  # reschedule event in 2 seconds
+        root.after(1000, move)  # reschedule event in 2 seconds
         num_moves.set(num_moves.get() + 1)
 #        if num_moves.get() > 10:
 #            print("Survived!")
