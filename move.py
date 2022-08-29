@@ -9,7 +9,7 @@ For Python 2 you might need to change the shebang line to
 # Imports
 ##########################
 import os
-from math import radians  # This is used to reset the head pose
+from math import radians, sin, pi  # This is used to reset the head pose
 import numpy as np  # Numerical Analysis library
 import cv2  # Computer Vision library
 import time
@@ -96,15 +96,25 @@ def miro_move(direction):
 
     if direction == "up":
         x += 0.6
+        z = 0
+        w = 0
     if direction == "down":
         x -= 0.6
+        z = 1
+        w = 0
     if direction == "left":
         y += 0.6
+        z = sin(pi / 4)
+        w = sin(pi / 4)
     if direction == "right":
         y -= 0.6
+        z = -sin(pi / 4)
+        w = -sin(pi / 4)
         
     state_msg.pose.position.x = x
     state_msg.pose.position.y = y
+    state_msg.pose.orientation.z = z
+    state_msg.pose.orientation.w = w
     rospy.wait_for_service('/gazebo/set_model_state')
         
     
