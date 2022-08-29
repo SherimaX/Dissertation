@@ -86,22 +86,22 @@ class MiRoClient:
 def move(direction):
     state_msg = ModelState()
     state_msg.model_name = "miro"
-#
-#    get_model_state = rospy.ServiceProxy('/gazebo/get_model_state', GetModelState)
-#    resp = get_model_state("miro","")
-#
-#    x = resp.pose.position.x
-#    y = resp.pose.position.y
-#
-#
-#    if direction == "up":
-#        x += 0.6
-#    if direction == "down":
-#        x -= 0.6
-#    if direction == "left":
-#        y += 0.6
-#    if direction == "right":
-#        y -= 0.6
+
+    get_model_state = rospy.ServiceProxy('/gazebo/get_model_state', GetModelState)
+    resp = get_model_state("miro","")
+
+    x = resp.pose.position.x
+    y = resp.pose.position.y
+
+
+    if direction == "up":
+        x += 0.6
+    if direction == "down":
+        x -= 0.6
+    if direction == "left":
+        y += 0.6
+    if direction == "right":
+        y -= 0.6
         
     state_msg.pose.position.x = 0.5
     state_msg.pose.position.y = 0
@@ -110,7 +110,7 @@ def move(direction):
     
     set_state = rospy.ServiceProxy('/gazebo/set_model_state', SetModelState)
     resp = set_state(state_msg)
-    time.sleep(0.3)
+#    time.sleep(0.3)
 
 
 if __name__ == "__main__":
