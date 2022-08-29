@@ -16,8 +16,7 @@
       </collision>
       <visual name="visual">
           <material>
-              <name>Gazebo/Wood</name>
-              <uri>Gazebo/Wood</uri>
+              RepeatedTexture
           </material>
         <geometry>
           <box>
