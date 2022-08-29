@@ -8,14 +8,15 @@ Original file is located at
 """
 
 class cube:
-  def __init__(self, id, position):
+  def __init__(self, id, position, scale):
     self.name = "cube_"+str(id)
     self.position = position
+    self.scale = scale
   def output(self):
     output = "        <include>\n"
     output += "            <name>{}</name>\n".format(str(self.name))
     output += "            <uri>model://cube</uri>\n"
-    output += "            <pose>{} {} 0 0 0 0</pose>\n".format(self.position[0], self.position[1])
+    output += "            <pose>{} {} {} 0 0 0</pose>\n".format(self.position[0], self.position[1], self.scale / 2)
     output += "        </include>\n\n"
     return output
 
@@ -50,7 +51,7 @@ walls = [[-(w[0] + x_offset) * scale, (w[1] + y_offset) * scale] for w in walls]
 
 file = ""
 for i, w in enumerate(walls):
-  new_cube = cube(i, w)
+  new_cube = cube(i, w, scale)
   file += new_cube.output()
 
 world = open("template.txt", "r")
