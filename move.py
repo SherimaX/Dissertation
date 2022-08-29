@@ -126,9 +126,13 @@ def miro_move(direction):
 if __name__ == "__main__":
 
     
-    move("up")
-    move("up")
-    move("up")
-    move("up")
-    move("left")
-    move("left")
+    drive()
+    time.sleep(0.5)
+    drive()
+    time.sleep(0.5)
+    drive()
+    time.sleep(0.5)
+    drive()
+    time.sleep(0.5)
+    drive()
+    time.sleep(0.5)
