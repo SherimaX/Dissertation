@@ -20,7 +20,6 @@ class cube:
     output += "        </include>\n\n"
     return output
 
-cube_1 = cube(0, [0, 0])
 
 from PIL import Image
 import numpy as np
