@@ -19,7 +19,7 @@ class Model:
         self.epsilon = 0.1
         self.rho1 = -1.0
         self.rho2 = 1.0
-        self.h = 0.01 # small time step
+        self.h = 0.08 # small time step
         # Component classes
         self.X0 = [0.2, 0.3, 1.0] # Initial state
         self.X = self.X0 # Current state, if you want to keep the time series, this should be an array
