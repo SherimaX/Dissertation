@@ -70,7 +70,7 @@ x_offset = -7
 y_offset = -4
 scale = 0.6
 
-walls, water, food = gen_world_from_image("t-maze.pnm")
+walls, food, water = gen_world_from_image("t-maze.pnm")
 
 walls = [[-(w[0] + x_offset) * scale, (w[1] + y_offset) * scale] for w in walls]
 water = [[-(w[0] + x_offset) * scale, (w[1] + y_offset) * scale] for w in water]
