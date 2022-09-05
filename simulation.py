@@ -26,7 +26,7 @@ from gazebo_msgs.msg import ModelState
 from gazebo_msgs.srv import SetModelState
 import miro2 as miro
 
-#from move import miro_move
+from move import miro_move
 
 #from moviepy.editor import VideoClip
 from tqdm import tqdm
@@ -449,21 +449,25 @@ def agent():
         x.set(x.get() - 1)
         deplete(g.status, g.depleting_rate)
         show_map()
+        miro_move("up")
 
     def move_down():
         x.set(x.get() + 1)
         deplete(g.status, g.depleting_rate)
         show_map()
+        miro_move("down")
 
     def move_left():
         y.set(y.get() - 1)
         deplete(g.status, g.depleting_rate)
         show_map()
+        miro_move("left")
 
     def move_right():
         y.set(y.get() + 1)
         deplete(g.status, g.depleting_rate)
         show_map()
+        miro_move("right")
 
     def move_random():
         r = random.randint(0, 3)
