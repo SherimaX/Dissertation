@@ -553,7 +553,7 @@ def agent():
         else:
             no_op()
 
-        root.after(100, move)  # reschedule event in 2 seconds
+        root.after(500, move)  # reschedule event in 2 seconds
         num_moves.set(num_moves.get() + 1)
 #        if num_moves.get() > 10:
 #            print("Survived!")
@@ -561,7 +561,7 @@ def agent():
 #            result = 0
 #            root.destroy()
 
-    root.after(100, move)
+    root.after(500, move)
     root.mainloop()
 
     return result
