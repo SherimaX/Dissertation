@@ -26,9 +26,9 @@ from gazebo_msgs.msg import ModelState
 from gazebo_msgs.srv import SetModelState
 import miro2 as miro
 
-#from move import miro_move
+from move import miro_move
 
-#from moviepy.editor import VideoClip
+from moviepy.editor import VideoClip
 from tqdm import tqdm
 
 WORLD_HEIGHT = 9
@@ -40,11 +40,6 @@ UP = 0
 DOWN = 1
 LEFT = 2
 RIGHT = 3
-
-
-data_1 = []
-data_2 = []
-
 
 class GridWorld:
 
@@ -103,10 +98,11 @@ class GridWorld:
             np.ones([self.world[0].shape[0], self.world[0].shape[1], len(self.actions)]) * 1. / len(self.actions)]
         if self.viz:
             self.init_grid_canvas()
-            self.video_out_fpath = 'out.mp4'
-#            self.clip = VideoClip(self.make_frame, duration=15)
+            self.video_out_fpath = 'shm_dqn_gridsolver.mp4'
+            self.clip = VideoClip(self.make_frame, duration=15)
 
     def make_frame(self, t):
+
         self.action()
         return self.viz_canvas
 
@@ -117,6 +113,7 @@ class GridWorld:
                 self.reset()
 
     def reset(self):
+        # print('Resetting')
         if not self.random_respawn:
             self.bot_rc = self.start_state.copy()
         else:
@@ -126,6 +123,7 @@ class GridWorld:
 
     def up(self, i):
         action_idx = 0
+        # print(self.action_labels[action_idx])
         new_r = self.bot_rc[i][0] - 1
         if new_r < 0 or self.world[i][new_r, self.bot_rc[i][1]] == self.wall_penalty:
             return self.wall_penalty, action_idx
@@ -136,6 +134,7 @@ class GridWorld:
 
     def left(self, i):
         action_idx = 1
+        # print(self.action_labels[action_idx])
         new_c = self.bot_rc[i][1] - 1
         if new_c < 0 or self.world[i][self.bot_rc[i][0], new_c] == self.wall_penalty:
             return self.wall_penalty, action_idx
@@ -146,6 +145,7 @@ class GridWorld:
 
     def right(self, i):
         action_idx = 2
+        # print(self.action_labels[action_idx])
         new_c = self.bot_rc[i][1] + 1
         if new_c >= self.world[i].shape[1] or self.world[0][self.bot_rc[i][0], new_c] == self.wall_penalty:
             return self.wall_penalty, action_idx
@@ -156,6 +156,7 @@ class GridWorld:
 
     def down(self, i):
         action_idx = 3
+        # print(self.action_labels[action_idx])
         new_r = self.bot_rc[i][0] + 1
         if new_r >= self.world[i].shape[0] or self.world[0][new_r, self.bot_rc[i][1]] == self.wall_penalty:
             return self.wall_penalty, action_idx
@@ -247,33 +248,21 @@ class GridWorld:
 
     def solve(self):
         if not self.viz:
-            for i in tqdm(range(10000)):
+            for i in tqdm(range(1000)):
                 self.action()
         else:
-            for i in tqdm(range(10000)):
+            for i in tqdm(range(1000)):
                 self.action()
 
 #        return self.q_values
 
-
-    def showAgentMap(self, status=[1, 1], agent_loc=[7, 4]):
+    def showAgentMap(self, status=[10, 10], agent_loc=[7, 4]):
         agentMap = self.viz_canvas.copy()
         eta1, eta2 = motivation.step(self.r[0], self.r[1])
-
-        data_1.append(motivation.X[0])
-        data_2.append(motivation.X[1])
-        # data_rho1.append(self.rho1)
-        # data_rho2.append(self.rho2)
-
-        #
-        # if len(data_1) % 10 == 0:
-        #
-        #     # plt.plot(data_rho1)
-        #     # plt.plot(data_rho2)
-        #     plt.axis('on')
-        #     plt.savefig('data.png')
-        #     # ! add units
-
+        print(eta1)
+        print(eta2)
+        print(self.r[0])
+        print(self.r[1])
         i = agent_loc[0]
         j = agent_loc[1]
 
@@ -298,10 +287,10 @@ class GridWorld:
 
 
 
-            x_component = (x_1_component * eta1 + x_2_component * eta2) * 5
-            y_component = (y_1_component * eta1 + y_2_component * eta2) * 5
-
-
+            x_component = (x_1_component * eta1 + x_2_component * eta2)
+            y_component = (y_1_component * eta1 + y_2_component * eta2)
+            
+            
             x = x_component
             y = y_component
 
@@ -389,78 +378,76 @@ def agent():
         input_1.insert(0, "{:.2f}".format(g.status[0]))
         input_2.insert(0, "{:.2f}".format(g.status[1]))
 
-        plot1 = plt.subplot(2,1,1)
-        plot1.clear()
-        plot1.axis('off')
+        plt.clf()
+        plt.axis('off')
 
+        needs = [1 - s for s in g.status]
 
         for i, s in enumerate(g.status):
             if s == 0:
                 if i == 0:
-                    print("Game Over. Food Depleted")
+                    print("Game Over. Water Depleted")
                     global result
                     result = 1
                     root.destroy()
                 if i == 1:
-                    print("Game Over. Water Depleted")
+                    print("Game Over. Food Depleted")
                     result = 2
                     root.destroy()
 
+        for i in range(len(needs)):
+            if needs[i] < 0:
+                needs[i] = 0
 
-
-        img, d = g.showAgentMap(g.status, [x.get(), y.get()])
+        img, d = g.showAgentMap(needs, [x.get(), y.get()])
         direction.set(d)
         plt.imshow(img)
 
-
-
-
-        plot2 = plt.subplot(2, 1, 2)
-        plot2.plot(data_1, color="tab:blue")
-        plot2.plot(data_2, color="tab:orange")
-
-        n = len(data_1)
-        if n > 100:
-            plot2.set_xlim(len(data_1) - 100, len(data_1))
-        else:
-            plot2.set_xlim(0, len(data_1))
-        plt.show()
-
     def deplete(status, depleting_rate):
-        g.status[0] = motivation.X[0]
-        g.status[1] = motivation.X[1]
+        # for i in range(len(status)):
+        #     if status[i] - depleting_rate[i] >= 0:
+        #         status[i] -= depleting_rate[i]
+        #     else:
+        #         status[i] = 0
 
+        status[0] = motivation.X[0]
+        status[1] = motivation.X[1]
 
+        print("water need: {}".format(1 - motivation.X[0]))
+        print("food need: {}".format(1 - motivation.X[1]))
+        
 
-
-        if g.lose_locs[0][0] == x.get() and g.lose_locs[0][1] == y.get():
-            g.r[1] = 10
-            # print("food")
-        else:
-            g.r[1] = 0
 
         if g.win_locs[0][0] == x.get() and g.win_locs[0][1] == y.get():
-            g.r[0] = 10
-            # print("water")
+            g.r[0] = 20
         else:
             g.r[0] = 0
 
+        if g.lose_locs[0][0] == x.get() and g.lose_locs[0][1] == y.get():
+            g.r[1] = 20
+        else:
+            g.r[1] = 0
+
     def move_up():
+        miro_move("up")
         x.set(x.get() - 1)
         deplete(g.status, g.depleting_rate)
         show_map()
 
     def move_down():
+        miro_move("down")
         x.set(x.get() + 1)
         deplete(g.status, g.depleting_rate)
         show_map()
 
     def move_left():
+        miro_move("left")
         y.set(y.get() - 1)
         deplete(g.status, g.depleting_rate)
         show_map()
 
     def move_right():
+        miro_move("right")
         y.set(y.get() + 1)
         deplete(g.status, g.depleting_rate)
         show_map()
@@ -496,44 +483,45 @@ def agent():
     root = tkinter.Tk()
     root.title("Agent")
 
-    tkinter.Label(root, text="Food").grid(row=0, column=0)
-    tkinter.Label(root, text="Water").grid(row=0, column=1)
+    tkinter.Label(root, text="Water").grid(row=0, column=0)
+    tkinter.Label(root, text="Food").grid(row=0, column=1)
     input_1 = tkinter.Entry(root, width=5)
     input_2 = tkinter.Entry(root, width=5)
     input_1.insert(0, "{:.2f}".format(g.status[0]))
     input_2.insert(0, "{:.2f}".format(g.status[1]))
-    input_1.grid(row=1, column=1)
-    input_2.grid(row=1, column=0)
-    # !
+    input_1.grid(row=1, column=0)
+    input_2.grid(row=1, column=1)
+    tkinter.Button(text='Update', command=update_status).grid(row=2, column=0)
 
     x = tkinter.IntVar(root, 7)
     y = tkinter.IntVar(root, 4)
     direction = tkinter.StringVar(root)
     num_moves = tkinter.IntVar(root, 0)
 
+    up = tkinter.Button(text='Up', command=move_up)
+    down = tkinter.Button(text='Down', command=move_down)
+    left = tkinter.Button(text='Left', command=move_left)
+    right = tkinter.Button(text='Right', command=move_right)
+
+    up.grid(row=4, column=1)
+    down.grid(row=5, column=1)
+    left.grid(row=5, column=0)
+    right.grid(row=5, column=2)
+
+    root.bind('<Up>', lambda event: move_up())
+    root.bind('<Down>', lambda event: move_down())
+    root.bind('<Left>', lambda event: move_left())
+    root.bind('<Right>', lambda event: move_right())
 
     # create axes
-
-
-
     plt.figure(figsize=(10, 10))
+    plt.axis('off')
     plt.ion()
-
-
 
     img, d = g.showAgentMap()
     direction.set(d)
-    plt.subplot(2, 1, 1)
-    plt.axis('off')
     plt.imshow(img)
-    plt.subplot(2, 1, 2)
-    plt.plot(data_1)
-    plt.plot(data_2)
     plt.show()
-
-    print(data_1)
-
-
 
     def move():
         if direction.get() == "up":
@@ -549,7 +537,7 @@ def agent():
         else:
             no_op()
 
-        root.after(100, move)  # reschedule event in 2 seconds
+        root.after(1000, move)  # reschedule event in 2 seconds
         num_moves.set(num_moves.get() + 1)
 #        if num_moves.get() > 10:
 #            print("Survived!")
@@ -575,5 +563,6 @@ if __name__ == '__main__':
         g.solve()
 
         results.append(agent())
+        print(i)
     print(results)
 

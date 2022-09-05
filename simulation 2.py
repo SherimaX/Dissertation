@@ -516,7 +516,7 @@ def agent():
 
 
 
-    plt.figure(figsize=(10, 10))
+    plt.figure(figsize=(7, 7))
     plt.ion()
 
 
