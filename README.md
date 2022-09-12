@@ -33,7 +33,7 @@ python simulation.py
 
 <!-- PROJECT LOGO -->
 
-<h3 align="center">project_title</h3>
+<h3 align="center">Motivation based algorithms are indispensable for robots to train animal-like behaviours. As reinforcement learning becomes more advanced over the years, it's possible for robots to navigate through a motivation and balance multiple motivations. This project focuses on balancing MiRo's two needs, hunger and thirst, and train MiRo to reach food and water in a maze by itself. Here I built an editable maze with multiple motivations inside. MiRo can successfully navigate through the needs and balance its motivation in a real-world environment. The Phase-Based algorithm works to help MiRo switch between it's needs smoothly. In general, this method can be applied to all types of take which need to fulfil multiple independent motivations simultaneously.</h3>
 
   <p align="center">
     project_description
