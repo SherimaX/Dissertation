@@ -23,7 +23,6 @@ tqdm, matplotlib, and tkinter are used in the project.
   ```sh
   pip install matplotlib
   ```
-    ```
 * tkinter
   ```sh
   pip install tkinter
