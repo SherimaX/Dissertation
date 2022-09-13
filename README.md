@@ -60,9 +60,9 @@ tqdm, matplotlib, and tkinter are used in the project.
    sh launch_sim_rosbridge.sh t-maze
    ```
   
-7. Run agent.py 
+7. Run robot.py 
    ```sh
-   python3 agent.py
+   python3 robot.py
    ```
    
 ### Run the Model without MiRo
