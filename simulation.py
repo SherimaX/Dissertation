@@ -1,16 +1,5 @@
-"""  _
-    |_|_
-   _  | |
- _|_|_|_|_
-|_|_|_|_|_|_
-  |_|_|_|_|_|
-    | | |_|
-    |_|_
-      |_|
+# include reference from https://towardsdatascience.com/maze-rl-d035f9ccdc63
 
-Author: Souham Biswas
-Website: https://www.linkedin.com/in/souham/
-"""
 
 import itertools
 import time
@@ -47,7 +36,7 @@ data_2 = []
 
 class GridWorld:
 
-    def __init__(self, world_height=3, world_width=4, discount_factor=.5, default_reward=-.5, wall_penalty=-.6,
+    def __init__(self, world_height=3, world_width=4, discount_factor=.7, default_reward=-.5, wall_penalty=-.6,
                  win_reward=10., lose_reward=5., viz=True, patch_side=120, grid_thickness=2, arrow_thickness=3,
                  wall_locs=[[1, 1], [1, 2]], win_locs=[[0, 3]], lose_locs=[[1, 3]], start_loc=[0, 0],
                  reset_prob=.2):
@@ -212,8 +201,7 @@ class GridWorld:
             patch[:, :, :] = self.win_color[1]
         elif self.world[0][i, j] == self.wall_penalty:
             patch[:, :, :] = self.wall_color
-        else:
-            patch[:, :, :] = self.path_color
+
 
         if self.world[1][i, j] == self.default_reward:
             arrow_canvas = np.zeros_like(patch)
@@ -230,7 +218,7 @@ class GridWorld:
                 cv2.arrowedLine(arrow_canvas, (s, s), (vx, vy), self.win_color[reward_index],
                                 thickness=self.arrow_thickness,
                                 tipLength=0.5)
-                gridbox = (magnitude * arrow_canvas + (1 - magnitude) * patch).astype(np.uint8)
+                gridbox = (magnitude * arrow_canvas + patch).astype(np.uint8)
                 self.viz_canvas[starty:endy, startx:endx] = gridbox
         else:
             self.viz_canvas[starty:endy, startx:endx] = patch

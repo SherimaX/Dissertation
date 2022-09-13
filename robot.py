@@ -1,16 +1,4 @@
-"""  _
-    |_|_
-   _  | |
- _|_|_|_|_
-|_|_|_|_|_|_
-  |_|_|_|_|_|
-    | | |_|
-    |_|_
-      |_|
-
-Author: Souham Biswas
-Website: https://www.linkedin.com/in/souham/
-"""
+# include reference from https://towardsdatascience.com/maze-rl-d035f9ccdc63
 
 import itertools
 import time
